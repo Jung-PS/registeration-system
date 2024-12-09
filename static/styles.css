@@ -1,0 +1,257 @@
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=IBM+Plex+Sans+Thai+Looped:wght@100;200;300;400;500;600;700&family=Maitree:wght@200;300;400;500;600;700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Maitree:wght@200;300;400;500;600;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Maitree", sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url("background.jpg") no-repeat;
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(3px);
+
+}
+
+.wrapper {
+    width: 350px;
+    background: rgba(0, 0, 0, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(50px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    border-radius: 10px;
+    padding: 30px 40px;
+}
+
+.wrapper h1 {
+    font-size: 36px;
+    text-align: center;
+}
+
+.wrapper h2 {
+    text-align: center;
+}
+
+.wrapper h3{
+    text-align: center;
+}
+.wrapper .input-box {
+    width: 100%;
+    height: 50px;
+    margin: 20px 0;
+}
+
+.wrapper small {
+    text-align: center;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 20px 45px 20px 20px;
+}
+
+.input-box input::placeholder {
+    color: #fff;
+}
+
+.input-box i {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+}
+
+.wrapper .remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin: -15px 0 15px;
+}
+
+.remember-forgot label input {
+    accent-color: #fff;
+    margin-right: 3px;
+}
+
+.remember-forgot a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+
+.wrapper .btn {
+    width: 100%;
+    height: 45px;
+    border: none;
+    outline: none;
+    background: #fff;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 400;
+}
+
+.wrapper .register-link {
+    text-align: center;
+    font-size: 14.5px;
+    margin: 20px 0 15px;
+}
+
+.register-link p a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 400;
+}
+
+
+.register-link p a:hover {
+    text-decoration: underline;
+}
+
+.flashed-messages {
+    list-style: none;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.flashed-messages li {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #fff;
+}
+
+.flashed-messages .error {
+    color: #ff6b6b;
+}
+
+.flashed-messages .success {
+    color: #4caf50;
+}
+
+input[type="file"] {
+    -webkit-appearance: none; /* Removes default iOS styles */
+    appearance: none; /* Ensures consistent styling */
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 40px;
+    cursor: pointer;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    font-size: 16px;
+    text-align: center;
+    width: 100%;
+    display: none;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    visibility: hidden; /* Hides the default button */
+}
+
+.custom-file-upload {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 40px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    backdrop-filter: blur(3px);
+}
+
+.custom-file-upload:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.profile-pic-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center-img {
+    max-width: 100%;
+    height: auto;
+}
+
+.wrapper p {
+    line-height: 1.8;
+}
+
+.input-box select {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 0 20px;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='white' d='M5 8l5 5 5-5H5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+}
+
+.input-box option {
+    color: black;
+
+}
+
+.input-box select::placeholder {
+    color: #fff;
+}
+
+.input-box input:focus, .input-box select:focus {
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.agree-tos {
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.agree-tos a {
+    color: #fff;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.agree-tos a:hover {
+    color: #f0f0f0;
+}

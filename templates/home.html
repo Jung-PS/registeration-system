@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{username}}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <style>
+        .news-wrapper {
+            width: 100% !important;
+            max-width: 800px !important;
+            color: #fff !important;
+            border-radius: 10px !important;
+            padding: 20px 30px !important;
+            margin-bottom: 20px !important;
+            text-align: center !important;
+        }
+
+        .news-wrapper h1 {
+            font-size: 24px !important;
+            margin-bottom: 10px !important;
+        }
+    </style>
+</head>
+
+<body>
+{% if user_data.news %}
+<div class="wrapper news-wrapper">
+    <h1>Logout</h1>
+    <p>{{user_data.news | safe}}</p>
+</div>
+{% endif %}
+<div class="wrapper">
+    <h2>Hi, {{ username }}</h2>
+    <p>Name: {{ user_data.prefix }}{{ user_data.full_name }}</p>
+    <p>Grade: {{ user_data.school_grade }}</p>
+    <p>School: {{ user_data.school_name }}</p>
+    <p>Registration status:
+        {% if user_data.checked == 'True' %}
+        Completed
+        {% elif user_data.checked == 'Rejected' %}
+        <span style="color: red;">Invalid</span>
+        {% else %}
+        Checking
+        {% endif %}
+    </p>
+    {% if user_data.profile_picture %}
+    <div class="profile-pic-container">
+        <img src="{{ url_for('static', filename='uploads/' + user_data.profile_picture) }}" alt="Profile Picture"
+             width="150" class="center-img">
+    </div>
+    {% endif %}
+    <div class="register-link">
+        <p><a href="{{ url_for('logout') }}">Logout</a></p>
+    </div>
+</div>
+</body>
+</html>
