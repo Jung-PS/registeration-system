@@ -47,8 +47,8 @@ This is a user management and registration system built with Flask. It includes 
 ### Steps
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repository/jung-ps-registration.git
-   cd jung-ps-registration
+   git clone https://github.com/Jung-PS/registeration-system
+   cd registeration-system
    ```
 
 2. Install required dependencies:
