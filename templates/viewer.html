@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viewer Console</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        window.onload = function () {
+            document.body.classList.add("no-transition"); // Disable transitions initially
+
+            const showUnchecked = getCookie("showUnchecked") === "true";
+            document.getElementById("showUnchecked").checked = showUnchecked;
+
+            const userSections = document.querySelectorAll(".user-section");
+            userSections.forEach(section => {
+                const isChecked = section.getAttribute("data-checked") === "true";
+                if (showUnchecked && isChecked) {
+                    section.classList.add("hidden");
+                } else {
+                    section.classList.remove("hidden");
+                }
+            });
+
+            // Remove no-transition class after processing
+            setTimeout(() => {
+                document.body.classList.remove("no-transition");
+            }, 10); // Allow browser to repaint before removing the class
+
+            const levelFilter = getCookie('levelFilter');
+            if (levelFilter) {
+                const selectedLevels = levelFilter.split(',');
+                const selectElement = document.getElementById('levelFilter');
+                for (const option of selectElement.options) {
+                    if (selectedLevels.includes(option.value)) {
+                        option.selected = true;
+                    }
+                }
+                filterByLevel();
+            }
+        };
+
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            document.cookie = name + "=" + value + "; expires=" + date.toUTCString() + "; path=/";
+        }
+
+        function getCookie(name) {
+            const cookieArr = document.cookie.split(";");
+            for (let i = 0; i < cookieArr.length; i++) {
+                const cookiePair = cookieArr[i].trim().split("=");
+                if (cookiePair[0] === name) return cookiePair[1];
+            }
+            return null;
+        }
+
+        function toggleUnchecked() {
+            const showUnchecked = document.getElementById("showUnchecked").checked;
+            setCookie("showUnchecked", showUnchecked, 7);
+            const userSections = document.querySelectorAll(".user-section");
+            userSections.forEach(section => {
+                const isChecked = section.getAttribute("data-checked") === "true";
+                if (showUnchecked && isChecked) {
+                    section.classList.add("hidden");
+                } else {
+                    section.classList.remove("hidden");
+                }
+            });
+        }
+
+        function filterByLevel() {
+            const selectElement = document.getElementById('levelFilter');
+            const selectedOptions = Array.from(selectElement.selectedOptions).map(option => option.value);
+            document.cookie = `levelFilter=${selectedOptions.join(',')}; path=/`;
+            const userSections = document.querySelectorAll('.user-section');
+            userSections.forEach(section => {
+                const level = section.getAttribute('data-level');
+                if (selectedOptions.includes(level)) {
+                    section.style.display = '';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f0f2f5;
+        }
+
+        .user-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: max-height 0.5s ease, opacity 0.5s ease, margin-bottom 0.5s ease-in;
+            max-height: 2000px;
+            opacity: 1;
+            overflow: hidden;
+        }
+
+        .user-section.hidden {
+            margin-bottom: 0;
+            max-height: 0;
+            opacity: 0;
+        }
+
+        .user-section h2 {
+            margin-bottom: 20px;
+        }
+
+        .user-details li {
+            list-style: none;
+            margin-bottom: 5px;
+        }
+
+        .user-details strong {
+            display: inline-block;
+            width: 120px;
+        }
+
+        .navbar {
+            margin-bottom: 30px;
+        }
+
+        .collapse {
+            transition: max-height 0.5s ease;
+            overflow: hidden;
+        }
+
+        .collapse.show {
+            max-height: 5000px;
+        }
+
+        .collapse:not(.show) {
+            max-height: 0;
+        }
+
+        body.no-transition * {
+            transition: none !important;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Viewer Console</a>
+    <div class="ml-auto">
+        <a href="{{ url_for('logout') }}" class="btn btn-outline-light">Logout</a>
+    </div>
+</nav>
+<div class="container">
+    {% if user_data.news %}
+    <div class="announcement" style="text-align: center">
+        <h1>ข้อความจากแอดมิน</h1>
+        <p>{{user_data.news | safe}}</p>
+    </div>
+    {% endif %}
+    <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="showUnchecked" onclick="toggleUnchecked()">
+        <label class="form-check-label" for="showUnchecked">Show only unchecked</label>
+    </div>
+    <div class="form-group">
+        <label for="levelFilter">Filter by Level:</label>
+        <select class="form-control" id="levelFilter" multiple onchange="filterByLevel()">
+            <option value="usr">User</option>
+            <option value="viewer">Viewer</option>
+            <option value="checker">Checker</option>
+            <option value="admin">Admin</option>
+        </select>
+    </div>
+
+    {% for username, info in data.items() %}
+    <div class="user-section" data-checked="{{ 'true' if info.checked!='False' else 'false' }}" data-level="{{ info.level }}">
+        <h2>User: {{ username }}</h2>
+        <ul class="user-details">
+            <li><strong>Full Name:</strong> {{ info.prefix }}{{ info.full_name }}</li>
+            <li><strong>School:</strong> {{ info.school_grade }} {{ info.school_name }}</li>
+            <li><strong>Level:</strong> {{ info.level }}</li>
+            <li><strong>Checked:</strong>
+                {% if info.checked == 'True' %}
+                Yes
+                {% elif info.checked == 'Rejected' %}
+                Rejected
+                {% else %}
+                No
+                {% endif %}
+            </li>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Include Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

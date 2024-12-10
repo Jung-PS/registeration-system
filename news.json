@@ -1,0 +1,13 @@
+{
+    "news": {
+        "title": "Sample",
+        "content": "Sample"
+    },
+    "register": {
+        "status": "open",
+        "content": "Sample"
+    },
+    "web": {
+        "content": "Sample"
+    }
+}

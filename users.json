@@ -1,0 +1,17 @@
+{
+    "admin": {
+        "password": "$2b$12$WqL/7TbOMy07kEAOjdtJc./IPJJia8rgqTLkNEAzRRkpzmDDbHmNm",
+        "prefix": "Mister",
+        "school_grade": "Gr.9",
+        "school_name": "sample",
+        "full_name": "admin",
+        "profile_picture": "64ecbed3f937b326aec0575931825a23.jpg",
+        "checked": "False",
+        "level": "admin",
+        "qrdata": "No QR code found",
+        "isvalid": false,
+        "timestamp": "09-12-2024 21:01:48",
+        "lastaction": "admin",
+        "news": ""
+    }
+}
